@@ -1,0 +1,23 @@
+.container{
+    border: solid 2px white;
+    padding: 90px;
+    padding-top: 20px;
+    border-radius: 8px;
+}
+.btn{
+    margin-top: 30px;
+    background-color: rgb(10, 107, 181);
+    color: white;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+}
+.form input{
+    padding: 13px;
+   outline: none;
+   width: 200px;
+    
+}
+.form h4{
+    font-size: 20px;
+}
