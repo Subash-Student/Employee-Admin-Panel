@@ -6,11 +6,33 @@ import jwt from "jsonwebtoken";
 
 export const logInUser = async(req,res) => {
   
+   const {email,password} = req.body;
+
+   try {
+      const user = await userModal.findOne({email});
+
+      if(!user){
+        return res.json({success:false,message:"User Does Not Exist!"});
+      }
+      
+      const isMatch = await bcrypt.compare(password,user.password);
+      
+      if(!isMatch){
+         return res.json({success:false,message:"Password Does't Match!"});
+      }
+      
+      const token = createToken(user._id);
+      res.json({success:true,user,token:token})
+      
+   } catch (error) {
+      console.log(error);
+      return res.json({success:false,message:"Error while LogIn"});;
+   }
 
 
 }
 const createToken =(id)=>{
-    return jwt.sign({id},'random#secret')
+    return jwt.sign({id},process.env.JWT_SECRET |'random#secret')
 }
 
 
