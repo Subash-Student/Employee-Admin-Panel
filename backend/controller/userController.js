@@ -22,7 +22,7 @@ export const logInUser = async(req,res) => {
       }
       
       const token = createToken(user._id);
-      res.json({success:true,user,token:token})
+      res.json({success:true,token:token,message:"Succefully Loged In"})
       
    } catch (error) {
       console.log(error);
@@ -32,7 +32,7 @@ export const logInUser = async(req,res) => {
 
 }
 const createToken =(id)=>{
-    return jwt.sign({id},process.env.JWT_SECRET |'random#secret')
+    return jwt.sign({id},process.env.JWT_SECRET ||'random#secret')
 }
 
 
@@ -68,7 +68,7 @@ export const registerUser =async(req,res)=>{
       
      const token = createToken(user._id);
 
-     res.json({success:true,token});
+     res.json({success:true,token,message:"Successfully Registered"});
     }
     catch(e){
         console.log(e);
