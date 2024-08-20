@@ -26,8 +26,9 @@ const Home = () => {
         </div>
        
       </>
-     : 
-        <LogIn1 />
+     : <Routes>
+       <Route path='' element={<LogIn1 />}/>
+     </Routes>
       }
 
       

@@ -42,6 +42,7 @@ const LogIn1 = () => {
         }
         console.log(data);
   return (
+    <div className="con">
     <div className='container'>
         {isVisible ? <h1>Register</h1> :<h1>LogIn</h1>
         }
@@ -61,11 +62,15 @@ const LogIn1 = () => {
                  <input type="password" required name='password' onChange={onChangeHandler} value={data.password} placeholder='Enter Your Password'/>
                 </label>
                 <br />
+                <div className="b">
                 <button className='btn' type='submit'>LogIn</button>
                 {!isVisible ?
                    <p>new ? <a onClick={()=>setIsVisible(prev =>!prev)} className='link'> Create Account</a></p> : <p >Already have an account ? <a onClick={()=>setIsVisible(prev =>!prev)} className='link'>LogIn</a></p>
                 }
+                </div>
+               
             </form>
+    </div>
     </div>
   )
 }
