@@ -16,6 +16,9 @@
     padding: 13px;
    outline: none;
    width: 200px;
+   background-color: white;
+   color: black;
+   border-radius: 8px;
     
 }
 .form h4{

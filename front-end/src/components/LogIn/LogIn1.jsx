@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react'
-import "../components/login.css"
+import "./login.css"
 import axios from "axios";
 import {toast} from "react-toastify"
-import { StoreContext } from '../context/StoreContext';
+import { StoreContext } from '../../context/StoreContext';
 
 const LogIn1 = () => {
-    const {url,setToken} = useContext(StoreContext);
+    const {url,setToken,setUser} = useContext(StoreContext);
     const[isVisible,setIsVisible] = useState(false);
     const [data,setData] =useState({
         name:"",
@@ -26,6 +26,7 @@ const LogIn1 = () => {
             if(response.data.success){
                 toast.success(response.data.message);
                 setToken(response.data.token);  
+                setUser(response.data.user)
                 localStorage.setItem("token",response.data.token);
             }
         } catch (error) {

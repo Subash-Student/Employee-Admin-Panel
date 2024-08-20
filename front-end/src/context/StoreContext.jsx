@@ -5,13 +5,17 @@ export const StoreContext = createContext();
 
 const StoreContextProvider = (props) => {
        
-    const url ="http://localhost:3000"
+    const url ="http://localhost:3000";
+    const[user,setUser]=useState({});
     const[token,setToken] = useState(localStorage.getItem("token"));
            
 
     const contextValue = {
         token,
-        setToken,url
+        setToken,
+        url,
+        user,
+        setUser
     }
 
 

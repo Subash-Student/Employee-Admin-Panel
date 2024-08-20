@@ -22,7 +22,7 @@ export const logInUser = async(req,res) => {
       }
       
       const token = createToken(user._id);
-      res.json({success:true,token:token,message:"Succefully Loged In"})
+      res.json({success:true,token:token,user,message:"Succefully Loged In"})
       
    } catch (error) {
       console.log(error);
@@ -68,7 +68,7 @@ export const registerUser =async(req,res)=>{
       
      const token = createToken(user._id);
 
-     res.json({success:true,token,message:"Successfully Registered"});
+     res.json({success:true,token,user,message:"Successfully Registered"});
     }
     catch(e){
         console.log(e);
