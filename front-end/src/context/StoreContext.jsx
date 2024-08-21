@@ -6,7 +6,6 @@ export const StoreContext = createContext();
 const StoreContextProvider = (props) => {
        
     const url ="http://localhost:3000";
-    const[user,setUser]=useState({});
     const[token,setToken] = useState(localStorage.getItem("token"));
            
 
@@ -14,8 +13,6 @@ const StoreContextProvider = (props) => {
         token,
         setToken,
         url,
-        user,
-        setUser
     }
 
 

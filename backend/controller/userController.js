@@ -1,6 +1,7 @@
 import validator from "validator";
 import userModal from "../model/userModal.js";
 import bcrypt from "bcrypt";
+import 'dotenv/config'
 import jwt from "jsonwebtoken";
 
 
@@ -35,11 +36,10 @@ const createToken =(id)=>{
     return jwt.sign({id},process.env.JWT_SECRET ||'random#secret')
 }
 
-
 export const registerUser =async(req,res)=>{
    
 
-    const{name,email,password} = req.body;
+    const{name,email,password,code} = req.body;
     try{
     const exist = await userModal.findOne({email});
 
@@ -50,11 +50,13 @@ export const registerUser =async(req,res)=>{
     if(!validator.isEmail(email)){
           return res.json({success:false,message:"Please enter valid email"});
         }
-
      if(password.length < 8){
         return res.json({success:false,message:"Please enter strong password"});
      }
- 
+      if(code != process.env.ADMIN_CODE){
+          return res.json({success:false,message:"Please enter valid admin code"});
+      }
+
      const salt = await bcrypt.genSalt(10);
      const hashedPassword = await bcrypt.hash(password,salt);
 

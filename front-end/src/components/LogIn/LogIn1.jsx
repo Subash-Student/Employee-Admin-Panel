@@ -10,7 +10,8 @@ const LogIn1 = () => {
     const [data,setData] =useState({
         name:"",
         email:"",
-        password:""
+        password:"",
+        code:""
     });
     const onLogIn =async(e)=>{
         e.preventDefault();
@@ -20,13 +21,12 @@ const LogIn1 = () => {
         }else{
             newUrl+="/api/user/register";
         }
-    console.log(newUrl);
         try {
             const response = await axios.post(newUrl,data);
             if(response.data.success){
                 toast.success(response.data.message);
                 setToken(response.data.token);  
-                setUser(response.data.user)
+                localStorage.setItem("name",response.data.user.name);
                 localStorage.setItem("token",response.data.token);
             }
         } catch (error) {
@@ -40,7 +40,6 @@ const LogIn1 = () => {
          const value = e.target.value;
          setData((data)=>({...data,[name]:value}));
         }
-        console.log(data);
   return (
     <div className="con">
     <div className='container'>
@@ -60,10 +59,17 @@ const LogIn1 = () => {
                  <input type="email" required name="email" onChange={onChangeHandler} value={data.email} placeholder='Enter Your Email'/>
                  <h4>PassWord</h4>
                  <input type="password" required name='password' onChange={onChangeHandler} value={data.password} placeholder='Enter Your Password'/>
+                {isVisible &&
+                <>
+                 <h4>Admin Code</h4>
+                 <input type="text" required name='code' onChange={onChangeHandler} value={data.code} placeholder='Enter admin code' />
+                </>
+                }
+    
                 </label>
                 <br />
                 <div className="b">
-                <button className='btn' type='submit'>LogIn</button>
+                <button className='btn' type='submit'>{isVisible?"Register":"LogIn"}</button>
                 {!isVisible ?
                    <p>new ? <a onClick={()=>setIsVisible(prev =>!prev)} className='link'> Create Account</a></p> : <p >Already have an account ? <a onClick={()=>setIsVisible(prev =>!prev)} className='link'>LogIn</a></p>
                 }

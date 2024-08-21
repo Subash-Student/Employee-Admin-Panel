@@ -2,6 +2,8 @@ import express from "express"
 import { connectDB } from "./config/db.js";
 import userRouter from "./routes/userRoute.js";
 import cors from "cors";
+import employeeRouter from "./routes/employeeRoute.js";
+
 
 
 //create app
@@ -18,6 +20,7 @@ connectDB();
 
 //api routes
 app.use("/api/user",userRouter);
+app.use("/api/employee",employeeRouter);
 
 //check api working
 app.get("/",(req,res)=>{
@@ -27,6 +30,7 @@ app.get("/",(req,res)=>{
 //host server
 app.listen(port,()=>{
     console.log(`Server started on http://localhost:${port}`)
+    
 })
 
 //mongodb+srv://subashmurugan2021:398522@cluster0.p4jkc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

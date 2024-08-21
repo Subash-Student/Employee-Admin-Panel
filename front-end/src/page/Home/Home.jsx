@@ -11,7 +11,7 @@ import NavBar from '../../components/Navbar/NavBar';
 
 const Home = () => {
 
-  const {token,user} = useContext(StoreContext);
+  const {token} = useContext(StoreContext);
   return (
     <div>
       {!!token ?
@@ -24,11 +24,8 @@ const Home = () => {
          <Route path='/show' element={<DisplayDet />}/>
       </Routes> 
         </div>
-       
-      </>
-     : <Routes>
-       <Route path='' element={<LogIn1 />}/>
-     </Routes>
+      </>:
+     <LogIn1 />
       }
 
       
