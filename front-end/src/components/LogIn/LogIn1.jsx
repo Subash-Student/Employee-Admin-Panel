@@ -5,7 +5,7 @@ import {toast} from "react-toastify"
 import { StoreContext } from '../../context/StoreContext';
 
 const LogIn1 = () => {
-    const {url,setToken,setUser} = useContext(StoreContext);
+    const {url,setToken} = useContext(StoreContext);
     const[isVisible,setIsVisible] = useState(false);
     const [data,setData] =useState({
         name:"",

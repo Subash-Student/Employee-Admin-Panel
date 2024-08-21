@@ -9,8 +9,10 @@ const employeeSchema = new mongoose.Schema({
     gender:{type:String,required:true},
     degree:{type:String,required:true},
     image:{type:String,required:true},
+    byAdd:{type:String,required:true},
+    
 })
 
-const employeeModal =mongoose.model.employee || mongoose.model("employee");
+const employeeModal =mongoose.model.employee || mongoose.model("employee",employeeSchema);
 
 export default employeeModal;

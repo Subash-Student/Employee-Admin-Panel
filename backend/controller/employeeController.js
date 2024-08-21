@@ -1,5 +1,5 @@
 import validator from "validator";
-import employeeModal from "../model/employeeModal";
+import employeeModal from "../model/employeeModal.js";
 
 
 
@@ -7,7 +7,7 @@ import employeeModal from "../model/employeeModal";
 
 export const add = async(req,res)=>{
 
-    const {name,email,mobile,designation,gender,degree} = req.body;
+    const {name,email,mobile,designation,gender,degree,byAdd} = req.body;
 
     const image_fileName = `${req.file.filename}`;
 
@@ -17,7 +17,7 @@ export const add = async(req,res)=>{
        return res.json({success:false,message:`${name} already exist`});
     }
 
-    let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var re = /^[a-zA-Z ]{2,30}$/;
 
     if(!re.test(name)){
         return res.json({success:false,message:"Please enter valid Name"});
@@ -39,7 +39,8 @@ export const add = async(req,res)=>{
         designation:designation,
         gender:gender,
         degree:degree,
-        image:image_fileName
+        image:image_fileName,
+        byAdd:byAdd
     })
 
     try {

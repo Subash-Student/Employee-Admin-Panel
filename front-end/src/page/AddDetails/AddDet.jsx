@@ -1,24 +1,74 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import "./add.css"
+import axios from "axios";
+import {toast} from "react-toastify"
+import {StoreContext} from "../../context/StoreContext"
 
 const AddDet = () => {
 
-    const[image,setImage] = useState(false);
+    const {url} = useContext(StoreContext);
+
+    const[image,setImage] = useState();
     const [data,setData] = useState({
         name:"",
         email:"",
         mobile:"",
-        designation:"",
+        designation:"developer",
         gender:"",
         degree:"",
         byAdd:localStorage.getItem("name")
     })
-
+console.log(data);
     const onChangeHandler = (e)=>{
           const name = e.target.name;
           const value = e.target.value;
     setData(data=>({...data,[name]:value}))
     }
+console.log(image);
+
+
+const onSubmit = async(e)=>{
+   
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("name",data.name);
+    formData.append("email",data.email);
+    formData.append("mobile",data.mobile);
+    formData.append("designation",data.designation);
+    formData.append("gender",data.gender);
+    formData.append("degree",data.degree);
+    formData.append("image",image);
+    formData.append("byAdd",data.byAdd);
+
+    try {
+        const response = await axios.post(`${url}/api/employee/add`,formData);
+        if(response.data.success){
+            setData({
+                name:"",
+                email:"",
+                mobile:"",
+                designation:data.designation,
+                gender:"",
+                degree:"",
+                byAdd:localStorage.getItem("name")
+            })
+            setImage();
+            toast.success(response.data.message);
+        }else{
+            toast.info(response.data.message);
+        }
+    } catch (error) {
+        console.log(error);
+        toast.error("Failed");
+    }
+    
+}
+
+
+
+
 
   return (
     <div className='body'>
@@ -26,7 +76,7 @@ const AddDet = () => {
 <div className="form-container">
     <h2>Registration Form</h2>
     
-    <form>
+    <form onSubmit={onSubmit}>
        
         <div className="form-group">
             <label >Name:</label>
@@ -48,7 +98,7 @@ const AddDet = () => {
         <div className="form-group">
             <label >Designation:</label>
             <select id="designation" name="designation"onChange={onChangeHandler} required>
-                <option value="developer">Developer</option>
+                <option  value="developer">Developer</option>
                 <option value="designer">Designer</option>
                 <option value="tester">Tester</option>
                 <option value="manager">Manager</option>
