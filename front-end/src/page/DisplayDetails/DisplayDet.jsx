@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {StoreContext} from "../../context/StoreContext"
-
+import SearchIcon from '@rsuite/icons/Search';
 import "./display.css"
 
 
@@ -8,16 +8,28 @@ import "./display.css"
 const DisplayDet = () => {
 
   const{data,url} = useContext(StoreContext);
-  
+  const [searchQuery,setSearchQuery] = useState("");
+  const[employeeDetails,setEmployeeDetails] = useState([]);
 
-  console.log(data);
-
+useEffect(()=>{
+  if(searchQuery === ""){
+    setEmployeeDetails(data);
+  }else{
+    const filtered = data.filter(employee =>
+      employee.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      employee.email.toLowerCase().includes(searchQuery.toLowerCase())   
+    );
+    setEmployeeDetails(filtered);
+  }
+},[searchQuery,data])
 
 
   return (
     <div className="main-container">
     <div className="container">
         <h2>Employee Details</h2>
+        <input type="text" placeholder='Search By Name or Email' value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)}/>
+        <SearchIcon className='search'/>
         <table>
     <tbody>
     <tr>
@@ -30,7 +42,7 @@ const DisplayDet = () => {
                 <th>Degree</th>
                 <th>Added By</th>
             </tr>
-           {data.length>0 && data.map((emp)=>(
+           {employeeDetails.length>0 && employeeDetails.map((emp)=>(
                <tr key={emp._id}>
                 <td><img src={`${url}/images/${emp.image}`} alt="Uploaded Image"/></td>
                 <td>{emp.name}</td>

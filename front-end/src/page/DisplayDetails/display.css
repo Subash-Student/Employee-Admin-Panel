@@ -5,7 +5,7 @@
     /* display: flex;
     align-items: center;
     justify-content: center; */
-    padding: 0px 90px;
+    padding:  20px;
 }
 
 .container {
@@ -57,4 +57,19 @@ td img {
 
 tr:hover td {
     background-color: #f1f1f1;
+}
+.container input{
+    background-color: white;
+    width: 250px;
+    padding: 20px;
+    color: #333335;
+    height: 15px;
+    border-radius: 9px;
+    font-size: 15px;
+}
+.search{
+    height: 50px;
+    width: 50px;
+    padding: 3px;
+    border-radius: 50px;
 }
