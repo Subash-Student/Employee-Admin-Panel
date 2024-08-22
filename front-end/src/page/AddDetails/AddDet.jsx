@@ -74,7 +74,7 @@ const onSubmit = async(e)=>{
     <div className='body'>
 
 <div className="form-container">
-    <h2>Registration Form</h2>
+    <h2>Add Details</h2>
     
     <form onSubmit={onSubmit}>
        

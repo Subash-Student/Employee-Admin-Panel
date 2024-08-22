@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { add } from "../controller/employeeController.js";
+import { add, showEmployee } from "../controller/employeeController.js";
 
 const employeeRouter = express.Router();
 
@@ -14,5 +14,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage});
 
 employeeRouter.post("/add",upload.single("image"),add);
+employeeRouter.get("/show",showEmployee)
 
 export default employeeRouter;

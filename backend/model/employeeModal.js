@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema({
     gender:{type:String,required:true},
     degree:{type:String,required:true},
     image:{type:String,required:true},
-    byAdd:{type:String,required:true},
+    AddedBy:{type:String,required:true},
     
 })
 

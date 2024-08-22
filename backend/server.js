@@ -21,6 +21,8 @@ connectDB();
 //api routes
 app.use("/api/user",userRouter);
 app.use("/api/employee",employeeRouter);
+app.use("/api/employee",employeeRouter);
+app.use("/images",express.static("uploads"));
 
 //check api working
 app.get("/",(req,res)=>{

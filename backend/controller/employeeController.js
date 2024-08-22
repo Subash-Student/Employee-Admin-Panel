@@ -40,7 +40,7 @@ export const add = async(req,res)=>{
         gender:gender,
         degree:degree,
         image:image_fileName,
-        byAdd:byAdd
+        AddedBy:byAdd
     })
 
     try {
@@ -50,6 +50,23 @@ export const add = async(req,res)=>{
         console.log(error);
         return res.json({success:false,message:"Failed while adding"});
     }
+
+
+}
+
+ export const showEmployee = async(req,res)=>{
+
+    try {
+        const data = await employeeModal.find({});
+        res.json({success:true,data:data})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:"Failed"})
+
+    }
+
+
 
 
 }
