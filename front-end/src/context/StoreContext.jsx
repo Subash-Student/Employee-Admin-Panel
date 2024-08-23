@@ -8,6 +8,8 @@ export const StoreContext = createContext();
 const StoreContextProvider = (props) => {
        
     const url ="http://localhost:3000";
+    const[employeeDetails,setEmployeeDetails] = useState([]);
+
     const[token,setToken] = useState(localStorage.getItem("token"));
    
     const[data,setData] = useState({});
@@ -24,6 +26,21 @@ const StoreContextProvider = (props) => {
         toast.error("Failed");
       }
     }
+
+    function employeeData(searchQuery){
+        if(searchQuery === ""){
+          setEmployeeDetails(data);
+        }else{
+          const filtered = data.filter(employee =>
+            employee.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            employee.email.toLowerCase().includes(searchQuery.toLowerCase())   
+          );
+          setEmployeeDetails(filtered);
+        }
+    }
+
+
+
    useEffect(()=>{
     fetchData();
    },[])
@@ -33,7 +50,9 @@ const StoreContextProvider = (props) => {
     token,
     setToken,
     url,
-    data
+    data,
+    employeeDetails,
+    employeeData
 }
 
 

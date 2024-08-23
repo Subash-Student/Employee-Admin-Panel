@@ -6,6 +6,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import AddDet from '../AddDetails/AddDet';
 import DisplayDet from '../DisplayDetails/DisplayDet';
 import NavBar from '../../components/Navbar/NavBar';
+import UpdateDet from '../updateDetails/UpdateDet';
 
 
 
@@ -22,6 +23,7 @@ const Home = () => {
         <Routes>
          <Route path='/add' element={<AddDet />}/>
          <Route path='/show' element={<DisplayDet />}/>
+         <Route path='/update' element={<UpdateDet />}/>
       </Routes> 
         </div>
       </>:

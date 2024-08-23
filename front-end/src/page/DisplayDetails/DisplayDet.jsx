@@ -7,21 +7,12 @@ import "./display.css"
 
 const DisplayDet = () => {
 
-  const{data,url} = useContext(StoreContext);
+  const{employeeDetails,employeeData,url} = useContext(StoreContext);
   const [searchQuery,setSearchQuery] = useState("");
-  const[employeeDetails,setEmployeeDetails] = useState([]);
 
-useEffect(()=>{
-  if(searchQuery === ""){
-    setEmployeeDetails(data);
-  }else{
-    const filtered = data.filter(employee =>
-      employee.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      employee.email.toLowerCase().includes(searchQuery.toLowerCase())   
-    );
-    setEmployeeDetails(filtered);
-  }
-},[searchQuery,data])
+  useEffect(()=>{
+    employeeData(searchQuery);
+  },[searchQuery])
 
 
   return (
