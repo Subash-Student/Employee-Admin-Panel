@@ -12,7 +12,7 @@ const StoreContextProvider = (props) => {
 
     const[token,setToken] = useState(localStorage.getItem("token"));
    
-    const[data,setData] = useState({});
+    const[data,setData] = useState([]);
     async function fetchData(){
       try {
         const response = await axios.get(`${url}/api/employee/show`);
@@ -41,9 +41,17 @@ const StoreContextProvider = (props) => {
 
 
 
-   useEffect(()=>{
-    fetchData();
-   },[])
+    useEffect(() => {
+      const handleLoad = () => {
+        fetchData();
+      };
+    
+      window.addEventListener("load", handleLoad);
+    
+      return () => {
+        window.removeEventListener("load", handleLoad);
+      };
+    }, []);
  
 
    const contextValue = {

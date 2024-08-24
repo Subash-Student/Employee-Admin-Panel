@@ -11,7 +11,7 @@ const DisplayDet = () => {
   const [searchQuery,setSearchQuery] = useState("");
 
   useEffect(()=>{
-    employeeData(searchQuery);
+      employeeData(searchQuery);
   },[searchQuery])
 
 
@@ -19,8 +19,11 @@ const DisplayDet = () => {
     <div className="main-container">
     <div className="container">
         <h2>Employee Details</h2>
-        <input type="text" placeholder='Search By Name or Email' value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)}/>
-        <SearchIcon className='search'/>
+        <div className="inputtag">
+        <input type="text" className='input' placeholder='Search By Name or Email' value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)}/>
+        {/* <SearchIcon className='search'/> */}
+
+        </div>
         <table>
     <tbody>
     <tr>

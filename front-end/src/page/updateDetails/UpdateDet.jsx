@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {StoreContext} from "../../context/StoreContext"
-import EditIcon from '@rsuite/icons/Edit';
-import TrashIcon from '@rsuite/icons/Trash';
-import CheckIcon from '@rsuite/icons/Check';
-import SearchIcon from '@rsuite/icons/Search';
 import "./up.css"
 
 
@@ -13,7 +9,7 @@ const UpdateDet = () => {
   const [searchQuery,setSearchQuery] = useState("");
   const[editableRow,setEditableRow] = useState(null);
   const [newData,setNewData] = useState(employeeDetails);
-  const[newImg,setNewImg] = useState();
+  const [images, setImages] = useState([]);
 
 
 
@@ -29,13 +25,26 @@ const UpdateDet = () => {
    );
   }
 
-  console.log(newData);
+  
 
-  const handleFileChange = (e,id)=>{
-    let file = e.target.files[0];
-    setNewImg(file);
-  }
-  console.log(newImg);
+  const handleFileChange = (e, id) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImages(prevImages => {
+        const existingImageIndex = prevImages.findIndex(img => img._id === id);
+        if (existingImageIndex > -1) {
+          const updatedImages = [...prevImages];
+          updatedImages[existingImageIndex].image = file;
+          return updatedImages;
+        } else {
+          return [...prevImages, { id, image: file }];
+        }
+      });
+    }
+  };
+
+  console.log(newData);
+  console.log(images);
 
   const onSave = ()=>{
     setEditableRow(null);
@@ -49,9 +58,11 @@ const UpdateDet = () => {
   return (
 <div className="main-container">
     <div className="container">
-        <h2>User Details</h2>
-        <input type="text" placeholder='Search By Name or Email' value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)}/>
-        <SearchIcon className='search'/>
+        <h2>Update Employee Details</h2>
+        <div className="inputtag">
+        <input type="text"  className='input' placeholder='Search By Name or Email' value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)}/>
+        </div>
+        {/* <SearchIcon className='search'/> */}
         <table>
           <thead>
             <tr>
@@ -69,14 +80,13 @@ const UpdateDet = () => {
             {newData.length>0 && newData.map((employee) => (
             <tr key={employee._id}>
               <td>
-                <img src={`${url}/images/${employee.image}`} alt={employee.name} />
-                {editableRow === employee._id && (
+                {editableRow === employee._id ? (
                   <input
                   name='image'
                     type="file"
-                    onChange={(e) => handleFileChange(e, employee.id)}
+                    onChange={(e) => handleFileChange(e, employee._id)}
                   />
-                )}
+                ):<img src={`${url}/images/${employee.image}`} alt={employee.name} />}
               </td>
               <td>
                 <input
@@ -145,9 +155,14 @@ const UpdateDet = () => {
               <td>
                 <div className="action-buttons">
                   {editableRow === employee._id ? (
+                    <div className='btns'>
                     <button className="save-btn" onClick={onSave}>
                       Save
                     </button>
+                    <button className='close-btn' onClick={onSave}>
+                         Cancel
+                    </button>
+                    </div>
                   ) : (
                     <button className="edit-btn" onClick={() => handleEdit(employee._id)}>
                       Edit
