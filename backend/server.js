@@ -23,6 +23,7 @@ app.use("/api/user",userRouter);
 app.use("/api/employee",employeeRouter);
 app.use("/api/employee",employeeRouter);
 app.use("/images",express.static("uploads"));
+app.use("/api/employee",employeeRouter);
 
 //check api working
 app.get("/",(req,res)=>{
