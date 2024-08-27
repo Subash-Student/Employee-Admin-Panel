@@ -80,19 +80,19 @@ const onSubmit = async(e)=>{
        
         <div className="form-group">
             <label >Name:</label>
-            <input type="text" id="name" onChange={onChangeHandler} value={data.name} name="name" required placeholder='Employee Name'/>
+            <input className='inTag' type="text" id="name" onChange={onChangeHandler} value={data.name} name="name" required placeholder='Employee Name'/>
         </div>
 
 
         <div className="form-group">
             <label >Email:</label>
-            <input type="email"onChange={onChangeHandler} id="email"value={data.email} name="email" placeholder='Employee Email' required/>
+            <input className='inTag' type="email"onChange={onChangeHandler} id="email"value={data.email} name="email" placeholder='Employee Email' required/>
         </div>
 
         
         <div className="form-group">
             <label >Mobile Number:</label>
-            <input type="tel"onChange={onChangeHandler} id="mobile"value={data.mobile} name="mobile" placeholder='Employee Mobile No' required/>
+            <input className='inTag' type="tel"onChange={onChangeHandler} id="mobile"value={data.mobile} name="mobile" placeholder='Employee Mobile No' required/>
         </div>
 
         <div className="form-group">
@@ -124,7 +124,7 @@ const onSubmit = async(e)=>{
         
         <div className="form-group">
             <label >Upload Image:</label>
-            <input type="file" onChange={(e)=>setImage(e.target.files[0])} id="image" name="image" accept="image/*" required />
+            <input className='inTag' type="file" onChange={(e)=>setImage(e.target.files[0])} id="image" name="image" accept="image/*" required />
         </div>
 
         <div className="form-group">

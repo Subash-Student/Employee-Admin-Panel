@@ -24,7 +24,9 @@ const Home = () => {
          <Route path='/add' element={<AddDet />}/>
          <Route path='/show' element={<DisplayDet />}/>
          <Route path='/update' element={<UpdateDet />}/>
+         <Route path='/' element={<h1 className='welcome'>Welcome To Admin Panel....!</h1> } />
       </Routes> 
+        
         </div>
       </>:
      <LogIn1 />

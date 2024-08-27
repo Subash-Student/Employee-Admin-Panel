@@ -24,7 +24,7 @@ input[type="text"],
 input[type="email"],
 input[type="tel"],
 select {
-  width: 120px;
+  width: 100%;
   padding: 8px;
   margin: 8px 0;
   border: 1px solid #ccc;
