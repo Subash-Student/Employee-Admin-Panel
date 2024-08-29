@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
 }
-.container{
+.container1{
     border: solid 2px white;
     padding: 90px;
     padding: 50px;
@@ -28,10 +28,11 @@
     background-color: rgb(13, 81, 145);
     color: aliceblue;
 }
-.form input{
+.fIn{
     padding: 13px;
    outline: none;
-   width: 80%;
+   width: 90%;
+   /* height: 20px; */
    background-color: white;
    color: black;
    border-radius: 8px;

@@ -7,7 +7,7 @@ import { StoreContext } from '../../context/StoreContext';
 
 
 const NavBar = () => {
-  const{user,setToken} = useContext(StoreContext);
+  const{setToken} = useContext(StoreContext);
   const navigate = useNavigate();
 
   const onLogOut = ()=>{
@@ -22,10 +22,10 @@ const NavBar = () => {
     <div className='nav'>
         <div className="navItems">
             <div className="per">
-            <AdminIcon className='icon' />
+            <AdminIcon className='icon' onClick={()=>{navigate("/")}} />
             <h2>{localStorage.getItem("name")}</h2>
           </div>
-            <h2 className='h'>Employee Details Management</h2>
+            <h2 className='h'>Admin Panel</h2>
         <button onClick={()=>{onLogOut()}}>Log Out</button>
         </div>
     </div>

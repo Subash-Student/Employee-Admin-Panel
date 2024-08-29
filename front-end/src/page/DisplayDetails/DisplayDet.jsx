@@ -17,6 +17,7 @@ const DisplayDet = () => {
 
   return (
     <div className="main-container">
+        <p>Notes : Refresh the page after add</p>
     <div className="container">
         <h2>Employee Details</h2>
         <div className="inputtag">
@@ -36,7 +37,7 @@ const DisplayDet = () => {
                 <th>Degree</th>
                 <th>Added By</th>
             </tr>
-           {employeeDetails.length>0 && employeeDetails.map((emp)=>(
+           {employeeDetails.length>0 ? employeeDetails.map((emp)=>(
                <tr key={emp._id}>
                 <td><img src={`${url}/images/${emp.image}`} alt="Uploaded Image"/></td>
                 <td>{emp.name}</td>
@@ -48,8 +49,8 @@ const DisplayDet = () => {
                 <td>{emp.AddedBy}</td>
             </tr>
             )
-           )
-
+           ):
+           <center><p className='info'>No Details Added</p></center>
            }
            
     </tbody>

@@ -76,3 +76,10 @@ input[type="checkbox"] {
 .submit-btn:hover {
     background-color: #218838;
 }
+.form-group img{
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border-radius: 5px;
+    object-fit: cover;
+}

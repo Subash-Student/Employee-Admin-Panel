@@ -18,39 +18,32 @@ const StoreContextProvider = (props) => {
         const response = await axios.get(`${url}/api/employee/show`);
         if(response.data.success){
           setData(response.data.data);
+          setEmployeeDetails(response.data.data);
         }else{
           toast.error(response.data.message);
         }
       } catch (error) {
         console.log(error);
-        toast.error("Failed");
+        // toast.error("Failed");
       }
     }
 
-    function employeeData(searchQuery){
-        if(searchQuery === ""){
-          setEmployeeDetails(data);
-        }else{
-          const filtered = data.filter(employee =>
-            employee.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-            employee.email.toLowerCase().includes(searchQuery.toLowerCase())   
-          );
-          setEmployeeDetails(filtered);
-        }
+    function employeeData(searchQuery) {
+      if (searchQuery === "") {
+        setEmployeeDetails(data);
+      } else {
+        const filtered = data.filter(employee =>
+          employee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          employee.email.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setEmployeeDetails(filtered);
+      }
     }
 
 
 
     useEffect(() => {
-      const handleLoad = () => {
-        fetchData();
-      };
-    
-      window.addEventListener("load", handleLoad);
-    
-      return () => {
-        window.removeEventListener("load", handleLoad);
-      };
+      fetchData();
     }, []);
  
 
@@ -60,7 +53,8 @@ const StoreContextProvider = (props) => {
     url,
     data,
     employeeDetails,
-    employeeData
+    employeeData,
+    setEmployeeDetails
 }
 
 

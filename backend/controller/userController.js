@@ -53,7 +53,7 @@ export const registerUser =async(req,res)=>{
      if(password.length < 8){
         return res.json({success:false,message:"Please enter strong password"});
      }
-      if(code != process.env.ADMIN_CODE){
+      if(code != "2020"){
           return res.json({success:false,message:"Please enter valid admin code"});
       }
 

@@ -124,7 +124,9 @@ const onSubmit = async(e)=>{
         
         <div className="form-group">
             <label >Upload Image:</label>
+            {!!image ? <img src={URL.createObjectURL(image)} /> :
             <input className='inTag' type="file" onChange={(e)=>setImage(e.target.files[0])} id="image" name="image" accept="image/*" required />
+            }
         </div>
 
         <div className="form-group">

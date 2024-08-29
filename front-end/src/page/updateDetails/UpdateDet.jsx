@@ -5,7 +5,7 @@ import axios from 'axios';
 import './up.css';
 
 const UpdateDet = () => {
-  const { employeeDetails, employeeData, url } = useContext(StoreContext);
+  const { employeeDetails,setEmployeeDetails,data, employeeData, url } = useContext(StoreContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [editableRow, setEditableRow] = useState(null);
   const [newData, setNewData] = useState(employeeDetails);
@@ -13,7 +13,8 @@ const UpdateDet = () => {
 
   useEffect(() => {
     employeeData(searchQuery);
-  }, [searchQuery]);
+    setNewData(employeeDetails);
+  }, [searchQuery, data]);
 
   const handleChange = (e, id) => {
     const { name, value } = e.target;
@@ -25,14 +26,16 @@ const UpdateDet = () => {
   const handleFileChange = (e, id) => {
     const file = e.target.files[0];
     if (file) {
+      const imageUrl = URL.createObjectURL(file);
       setImages((prevImages) => {
         const existingImageIndex = prevImages.findIndex((img) => img.id === id);
         if (existingImageIndex > -1) {
           const updatedImages = [...prevImages];
           updatedImages[existingImageIndex].image = file;
+          updatedImages[existingImageIndex].imageUrl = imageUrl;
           return updatedImages;
-        } else {
-          return [...prevImages, { id, image: file }];
+        }  else {
+          return [...prevImages, { id, image: file, imageUrl }]; l
         }
       });
     }
@@ -75,6 +78,7 @@ const UpdateDet = () => {
   
     if (isSuccessful) {
       toast.success(message);
+      setImages([]);
     } else {
       toast.error(message);
     }
@@ -85,7 +89,7 @@ const UpdateDet = () => {
   const handleCancel = () => {
     setEditableRow(null);
     setNewData(employeeDetails);
-    setImages([]);
+    
   };
 
   const handleEdit = (id) => {
@@ -103,6 +107,7 @@ console.log(id);
       const response = await axios.post(`${url}/api/employee/delete`,ids);
       if(response.data.success){
         toast.success(response.data.message);
+        setEmployeeDetails(prevDetails => prevDetails.filter(emp => emp._id !== id));
          setEditableRow(null);
 
       }
@@ -117,16 +122,17 @@ console.log(id);
 
   return (
     <div className="main-container">
+            <p>Notes : Refresh the page after save</p>
       <div className="container">
         <h2>Update Employee Details</h2>
         <div className="inputtag">
-          <input
-            type="text"
-            className="input"
-            placeholder="Search By Name or Email"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        <input
+             type="text"
+             className="input"
+             placeholder="Search By Name or Email"
+             value={searchQuery}
+             onChange={(e) => setSearchQuery(e.target.value)}
+         />
         </div>
         <table>
           <thead>
@@ -142,20 +148,29 @@ console.log(id);
             </tr>
           </thead>
           <tbody>
-            {newData.length > 0 &&
+            {newData.length > 0 ?
               newData.map((employee) => (
                 <tr key={employee._id}>
                   <td>
-                    {editableRow === employee._id ? (
-                      <input
-                        name="image"
-                        type="file"
-                        onChange={(e) => handleFileChange(e, employee._id)}
-                      />
-                    ) : (
-                      <img src={`${url}/images/${employee.image}`} alt={employee.name} />
-                    )}
-                  </td>
+                        {editableRow === employee._id ? (
+                          images.find((img) => img.id === employee._id) ? (
+                            <img
+                              src={images.find((img) => img.id === employee._id).imageUrl}
+                              alt="Selected"
+                              // style={{ width: "100px", height: "100px" }}
+                            />
+                          ) : (
+                            <input
+                              name="image"
+                              type="file"
+                              onChange={(e) => handleFileChange(e, employee._id)}
+                            />
+                          )
+                        ) : (
+                          <img src={`${url}/images/${employee.image}`} alt={employee.name} />
+                        )}
+                    </td>
+
                   <td>
                     <input
                       type="text"
@@ -245,7 +260,9 @@ console.log(id);
                     </div>
                   </td>
                 </tr>
-              ))}
+              )):
+              <center><p className='info'>No Details Added</p></center>
+              }
           </tbody>
         </table>
       </div>
