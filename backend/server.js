@@ -1,8 +1,8 @@
 import express from "express"
-import { connectDB } from "./config/db.js";
 import userRouter from "./routes/userRoute.js";
 import cors from "cors";
 import employeeRouter from "./routes/employeeRoute.js";
+import connectDB from "./config/db.js";
 
 
 
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 //connect db
-connectDB();
+connectDB()
 
 //api routes
 app.use("/api/user",userRouter);

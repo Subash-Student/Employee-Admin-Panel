@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb+srv://subashmurugan2021:398522@cluster0.p4jkc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=random#secret
+      - ADMIN_CODE=2020
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
