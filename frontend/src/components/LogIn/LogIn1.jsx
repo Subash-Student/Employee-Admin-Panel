@@ -45,7 +45,7 @@ const LogIn1 = () => {
   return (
     <div className="con">
     <div className='container1'>
-        {isVisible ? <h1>Register</h1> :<h1>LogIn</h1>
+        {isVisible ? <h1>Register</h1> :<h1>LogIn your account</h1>
         }
         
         <hr />
