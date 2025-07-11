@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import { add, deleteEmployee, showEmployee, updateEmployee } from "../controller/employeeController.js";
 
+
 const employeeRouter = express.Router();
 
 const storage = multer.diskStorage({
