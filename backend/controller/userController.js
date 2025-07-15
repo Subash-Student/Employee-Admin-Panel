@@ -1,6 +1,6 @@
 import validator from "validator";
 import userModal from "../model/userModal.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import 'dotenv/config'
 import jwt from "jsonwebtoken";
 
