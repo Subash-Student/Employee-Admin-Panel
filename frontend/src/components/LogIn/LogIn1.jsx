@@ -54,13 +54,13 @@ const LogIn1 = () => {
                 {isVisible &&
                  <>
                  <h4>User Name</h4>
-                 <input className='fIn' type="text" required name='name' onChange={onChangeHandler} value={data.name} placeholder='Enter Your User Name'/>
+                 <input className='fIn' type="text" required name='name' onChange={onChangeHandler} value={data.name} placeholder='Try this : subashbanu827@gmail.com'/>
                  </>
                  }
                 <h4>Email</h4>
                  <input className='fIn' type="email" required name="email" onChange={onChangeHandler} value={data.email} placeholder='Enter Your Email'/>
                  <h4>PassWord</h4>
-                 <input className='fIn' type="password" required name='password' onChange={onChangeHandler} value={data.password} placeholder='Enter Your Password'/>
+                 <input className='fIn' type="password" required name='password' onChange={onChangeHandler} value={data.password} placeholder='Tyr this : 9874563210'/>
                 {isVisible &&
                 <>
                  <h4>Admin Code</h4>
