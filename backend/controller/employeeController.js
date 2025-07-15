@@ -1,6 +1,7 @@
 import validator from "validator";
 import employeeModal from "../model/employeeModal.js";
-
+import streamifier from "streamifier"
+import cloudinary from "../config/cloudinary.js";
 
 
 
@@ -9,7 +10,10 @@ export const add = async(req,res)=>{
 
     const {name,email,mobile,designation,gender,degree,byAdd} = req.body;
 
-        const image_fileName = `${req.file.filename}`;
+         const imageFile = req.file  || null;
+    if (!imageFile) return res.status(400).json({ message: "Image file is required" });
+
+    const imagePath = await handleFileUpload(imageFile, uploadImage, "Image");
 
 
     const exist =await employeeModal.findOne({email});
@@ -40,7 +44,7 @@ export const add = async(req,res)=>{
         designation:designation,
         gender:gender,
         degree:degree,
-        image:image_fileName,
+        image:imagePath,
         AddedBy:byAdd
     })
 
@@ -71,7 +75,11 @@ export const add = async(req,res)=>{
 export const updateEmployee = async (req, res) => {
     try {
       const { _id, name, email, mobile, designation, gender, degree } = req.body;
-      const image_fileName = req.file ? req.file.filename : null;
+     
+      const imageFile = req.file  || null;
+      if (!imageFile) return res.status(400).json({ message: "Image file is required" });
+  
+      const image_fileName = await handleFileUpload(imageFile, uploadImage, "Image");
   
       const employee = await employeeModal.findOne({_id});
   
@@ -149,3 +157,50 @@ export const updateEmployee = async (req, res) => {
     }
   };
   
+
+  const handleFileUpload = async (file, uploadFunction, type) => {
+    if (file) {
+        try {
+            const result = await uploadFunction(file);
+            if (!result?.success) {
+                throw new Error(`${type} upload failed`);
+            }
+            return result.url;
+        } catch (error) {
+            console.error(`Error during ${type} upload:`, error);
+            throw new Error(`${type} upload encountered an error`);
+        }
+    }
+    return null;
+};
+
+
+
+
+async function uploadImage(file) {
+    return new Promise((resolve, reject) => {
+        if (!file?.buffer) {
+            return reject({ success: false, message: "Invalid image file" });
+        }
+
+        const safeFilename = `${Date.now()}-${file.originalname.replace(/\s+/g, "-")}`;
+
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "image-files",
+                resource_type: "image",
+                public_id: safeFilename, // Unique filename to avoid conflicts
+            },
+            (error, result) => {
+                if (error) {
+                    console.error("Image upload error:", error);
+                    return reject({ success: false });
+                }
+                resolve({ success: true, url: result.secure_url });
+            }
+        );
+
+        // Convert the buffer to a readable stream and pipe it to Cloudinary
+        streamifier.createReadStream(file.buffer).pipe(stream);
+    });
+}
