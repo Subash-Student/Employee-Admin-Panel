@@ -6,7 +6,7 @@ import {StoreContext} from "../../context/StoreContext"
 
 const AddDet = () => {
 
-    const {url} = useContext(StoreContext);
+    const {url,setIsloading} = useContext(StoreContext);
 
     const[image,setImage] = useState();
     const [data,setData] = useState({
@@ -43,7 +43,9 @@ const onSubmit = async(e)=>{
     formData.append("byAdd",data.byAdd);
 
     try {
+        setIsloading(true)
         const response = await axios.post(`${url}/api/employee/add`,formData);
+        setIsloading(false)
         if(response.data.success){
             setData({
                 name:"",
@@ -124,7 +126,7 @@ const onSubmit = async(e)=>{
         
         <div className="form-group">
             <label >Upload Image:</label>
-            {!!image ? <img src={image} /> :
+            {!!image ? <img src={URL.createObjectURL(image)} /> :
             <input className='inTag' type="file" onChange={(e)=>setImage(e.target.files[0])} id="image" name="image" accept="image/*" required />
             }
         </div>

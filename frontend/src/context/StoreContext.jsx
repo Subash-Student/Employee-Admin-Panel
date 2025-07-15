@@ -11,11 +11,13 @@ const StoreContextProvider = (props) => {
     const[employeeDetails,setEmployeeDetails] = useState([]);
 
     const[token,setToken] = useState(localStorage.getItem("token"));
-   
+    const [isLoading,setIsloading] = useState(false)
     const[data,setData] = useState([]);
     async function fetchData(){
       try {
+        setIsloading(true);
         const response = await axios.get(`${url}/api/employee/show`);
+        setIsloading(false);
         if(response.data.success){
           setData(response.data.data);
           setEmployeeDetails(response.data.data);
@@ -54,7 +56,8 @@ const StoreContextProvider = (props) => {
     data,
     employeeDetails,
     employeeData,
-    setEmployeeDetails
+    setEmployeeDetails,
+    isLoading,setIsloading
 }
 
 

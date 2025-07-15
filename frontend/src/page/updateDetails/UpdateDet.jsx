@@ -5,7 +5,7 @@ import axios from 'axios';
 import './up.css';
 
 const UpdateDet = () => {
-  const { employeeDetails,setEmployeeDetails,data, employeeData, url } = useContext(StoreContext);
+  const { employeeDetails,setEmployeeDetails,data, employeeData, url,setIsloading } = useContext(StoreContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [editableRow, setEditableRow] = useState(null);
   const [newData, setNewData] = useState(employeeDetails);
@@ -62,7 +62,9 @@ const UpdateDet = () => {
       }
   
       try {
+        setIsloading(true)
         const response = await axios.put(`${url}/api/employee/update`, formData);
+        setIsloading(false)
         if (!response.data.success) {
           isSuccessful = false;
           message = response.data.message;
@@ -104,7 +106,9 @@ const UpdateDet = () => {
     }
 console.log(id);
     try {
+      setIsloading(true);
       const response = await axios.post(`${url}/api/employee/delete`,ids);
+      setIsloading(false);
       if(response.data.success){
         toast.success(response.data.message);
         setEmployeeDetails(prevDetails => prevDetails.filter(emp => emp._id !== id));
