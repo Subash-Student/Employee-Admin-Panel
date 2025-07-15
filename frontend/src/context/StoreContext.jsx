@@ -7,7 +7,7 @@ export const StoreContext = createContext();
 
 const StoreContextProvider = (props) => {
        
-    const url ="http://localhost:3000";
+    const url ="https://employee-admin-panel-backend.vercel.app";
     const[employeeDetails,setEmployeeDetails] = useState([]);
 
     const[token,setToken] = useState(localStorage.getItem("token"));
