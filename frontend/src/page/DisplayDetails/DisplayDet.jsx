@@ -39,7 +39,7 @@ const DisplayDet = () => {
             </tr>
            {employeeDetails.length>0 ? employeeDetails.map((emp)=>(
                <tr key={emp._id}>
-                <td><img src={`${url}/images/${emp.image}`} alt="Uploaded Image"/></td>
+                <td><img src={emp.image} alt="Uploaded Image"/></td>
                 <td>{emp.name}</td>
                 <td>{emp.email}</td>
                 <td>{emp.mobile}</td>

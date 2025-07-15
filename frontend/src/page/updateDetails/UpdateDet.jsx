@@ -167,7 +167,7 @@ console.log(id);
                             />
                           )
                         ) : (
-                          <img src={`${url}/images/${employee.image}`} alt={employee.name} />
+                          <img src={employee.image} alt={employee.name} />
                         )}
                     </td>
 
