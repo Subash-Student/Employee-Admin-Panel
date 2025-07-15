@@ -13,7 +13,12 @@ const port = 3000;
 
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin:"https://employee-admin-panel-eight.vercel.app",
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: '*',
+    credentials: true,
+}));
 
 //connect db
 connectDB()
