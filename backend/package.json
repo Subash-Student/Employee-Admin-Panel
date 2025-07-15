@@ -12,11 +12,11 @@
     "validator": "^13.12.0"
   },
   "scripts": {
-    "server": "nodemon server.js"
+    "server": "nodemon index.js"
   },
   "name": "back-end",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "author": "",
   "type": "module",
   "license": "ISC",

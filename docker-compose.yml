@@ -10,7 +10,8 @@ services:
       - mongo-data:/data/db
 
   backend:
-    image: subash07m/backend:latest
+    build:
+      context: ./backend
     container_name: backend
     ports:
       - "3000:3000"
@@ -22,7 +23,8 @@ services:
       - mongo
 
   frontend:
-    image: subash07m/frontend:latest
+    build:
+      context: ./frontend
     container_name: frontend
     ports:
       - "5173:5173"
